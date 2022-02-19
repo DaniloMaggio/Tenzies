@@ -36,12 +36,18 @@ function App() {
     }
 
   function rollDice () {
-    setDice(oldDice => oldDice.map(die => {
-      return die.isHeld ?
-          die :
-          generateNewDie()
-
-      }))
+    if(!tenzies) {
+      setDice(oldDice => oldDice.map(die => {
+        return die.isHeld ?
+            die :
+            generateNewDie()
+  
+        }))
+    } else {
+      setTenzies(false)
+      setDice(allNewDice())
+    }
+    
   }
 
   function holdDice(id) {
@@ -60,8 +66,8 @@ function App() {
     <main>
       {tenzies && <Confetti />}
       <h1 className="title">Tenzies</h1>
-      <p className='instructions'>Lancia i dadi finché non sono tutti uguali. Clicca su un dado
-      per bloccare il suo valore durante un lancio ed un altro. </p>
+      <p className='instructions'>Lancia i dadi finchè non sono tutti uguali. Clicca su un dado
+      per bloccare il suo valore tra un lancio ed un altro. La partita è vinta quanto tutti i dadi ottengono lo stesso valore.</p>
       <div className='dice-container'>
         {diceElements}
       </div>
